@@ -312,11 +312,13 @@ async def internal_error_handler(request, exc):
 # Run the app
 if __name__ == "__main__":
     import uvicorn
+    import os
     
-    # Configuration
+    # Configuration - Use environment variable for port (for deployment)
+    port = int(os.environ.get("PORT", 8001))
     config = {
         "host": "0.0.0.0",
-        "port": 8001,
+        "port": port,
         "log_level": "info",
         "access_log": True,
         "reload": False
