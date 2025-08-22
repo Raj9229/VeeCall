@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoCall Pro - Professional Video Calling</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page" class="page active">
+        <div class="landing-container">
+            <div class="landing-hero">
+                <div class="hero-content">
+                    <div class="logo">
+                        <i class="fas fa-video"></i>
+                        <span>VideoCall Pro</span>
+                    </div>
+                    <h1>Professional Video Calling</h1>
+                    <p>Connect with crystal clear HD video and audio. Secure, reliable, and easy to use.</p>
+                    
+                    <div class="join-section">
+                        <div class="input-wrapper">
+                            <i class="fas fa-users"></i>
+                            <input 
+                                type="text" 
+                                id="room-id-input" 
+                                placeholder="Enter Room ID"
+                                maxlength="50"
+                            >
+                        </div>
+                        
+                        <div class="button-group">
+                            <button id="join-room-btn" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span>Join Room</span>
+                            </button>
+                            <button id="create-room-btn" class="btn btn-secondary">
+                                <i class="fas fa-plus"></i>
+                                <span>Create Room</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-hd-video"></i>
+                            </div>
+                            <h3>HD Video Quality</h3>
+                            <p>Crystal clear video up to 1080p resolution</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <h3>Clear Audio</h3>
+                            <p>Noise cancellation and echo reduction</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Secure Connection</h3>
+                            <p>End-to-end encrypted conversations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Call Page -->
+    <div id="video-page" class="page">
+        <div class="video-call-container">
+            <!-- Header -->
+            <div class="call-header">
+                <div class="room-info">
+                    <i class="fas fa-users"></i>
+                    <span>Room: <span id="current-room-id"></span></span>
+                    <button id="copy-room-btn" class="copy-btn" title="Copy Room ID">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                <div class="call-status">
+                    <div class="status-indicator">
+                        <div class="status-dot" id="status-dot"></div>
+                        <span id="status-text">Connecting...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Area -->
+            <div class="video-area">
+                <div class="main-video-container">
+                    <div class="video-wrapper remote-video">
+                        <video id="remote-video" autoplay playsinline></video>
+                        <div class="video-overlay">
+                            <div class="participant-info">
+                                <i class="fas fa-user"></i>
+                                <span id="remote-label">Waiting for participant...</span>
+                            </div>
+                        </div>
+                        <div class="video-loading" id="remote-loading">
+                            <div class="loading-spinner"></div>
+                            <span>Connecting...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="local-video-container">
+                    <div class="video-wrapper local-video">
+                        <video id="local-video" autoplay muted playsinline></video>
+                        <div class="video-overlay">
+                            <div class="participant-info">
+                                <i class="fas fa-user"></i>
+                                <span>You</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Control Panel -->
+            <div class="control-panel">
+                <div class="controls-wrapper">
+                    <button id="mute-btn" class="control-btn audio-btn" title="Mute/Unmute">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    
+                    <button id="video-btn" class="control-btn video-btn" title="Turn Camera On/Off">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    
+                    <button id="end-call-btn" class="control-btn end-call-btn" title="End Call">
+                        <i class="fas fa-phone-slash"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Sidebar -->
+            <div class="chat-sidebar" id="chat-sidebar">
+                <div class="chat-header">
+                    <h3><i class="fas fa-comments"></i> Chat</h3>
+                    <button id="close-chat-btn" class="close-chat-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Messages will be added here -->
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" placeholder="Type a message...">
+                    <button id="send-message-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Toggle Button -->
+            <button id="chat-toggle-btn" class="chat-toggle-btn" title="Toggle Chat">
+                <i class="fas fa-comments"></i>
+                <span class="chat-badge" id="chat-badge">0</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner large"></div>
+            <h3>Connecting to room...</h3>
+            <p>Please wait while we establish the connection</p>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
