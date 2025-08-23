@@ -5,8 +5,12 @@ A modern, professional-grade video calling application built with **FastAPI** an
 ## 🌐 Live Demo
 - Railway: https://veecall-production.up.railway.app/
 - Render: https://veecall.onrender.com/
+  
+## 📸 Screenshots / Demo
 
-![Landing Screenshot](landing.png)
+- Landing page (Join/Create Room):  
+  ![Landing](landing.png)
+
 
 ---
 
@@ -56,15 +60,8 @@ High-level architecture of the app:
 - **ICE (STUN/TURN) Servers** enable NAT traversal
 - **Peers (Browsers)** exchange audio/video/data directly via WebRTC
 
-<img src="assets/architecture.svg" alt="Architecture Diagram" width="820" />
+<img src="architecture.svg" alt="Architecture Diagram" width="820" />
 
-## 📸 Screenshots / Demo
-
-- Landing page (Join/Create Room):  
-  ![Landing](landing.png)
-
-- (Optional) Add a short GIF showing a call flow: *place under* `assets/demo.gif` and reference:  
-  `![Demo](assets/demo.gif)`
 
 ## 🛠 Technical Optimizations
 
