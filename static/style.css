@@ -483,39 +483,48 @@ body {
     background: var(--warning-orange);
 }
 
-/* Video Area */
+/* Video Area - Equal size horizontal layout */
 .video-area {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: var(--spacing-xl); /* Increased padding for larger area */
-    gap: var(--spacing-xl); /* Increased gap between videos */
-    min-height: 0; /* Allow flex shrinking */
+    padding: var(--spacing-xl);
+    gap: var(--spacing-xl);
+    min-height: 0;
+    /* Force horizontal layout with equal sized videos */
+    flex-direction: row;
 }
 
-/* Additional video styling enhancements */
+/* Main video container - equal flex basis */
 .main-video-container {
-    flex: 1;
+    flex: 1; /* Equal flex distribution */
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    max-height: calc(100vh - 160px); /* Increased height (was 180px) */
-    min-height: 350px; /* Increased min height (was 300px) */
-    padding: var(--spacing-sm); /* Add padding around main video */
+    max-height: calc(100vh - 160px);
+    min-height: 350px;
+    padding: var(--spacing-sm);
+    /* Ensure equal width with local video */
+    width: 50%;
+    max-width: 50%;
 }
 
+/* Local video container - equal flex basis */
 .local-video-container {
-    width: 350px; /* Increased from 300px */
-    height: 230px; /* Increased from 200px */
+    flex: 1; /* Equal flex distribution */
     position: relative;
-    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-sm); /* Add padding around local video */
+    padding: var(--spacing-sm);
+    /* Match main video dimensions */
+    max-height: calc(100vh - 160px);
+    min-height: 350px;
+    width: 50%;
+    max-width: 50%;
 }
 
 /* Enhanced video container backgrounds */
@@ -1029,23 +1038,20 @@ body {
 /* Responsive Design */
 @media (max-width: 1200px) {
     .video-area {
-        flex-direction: column;
+        /* Keep horizontal layout but reduce spacing */
+        flex-direction: row;
         align-items: center;
-        gap: var(--spacing-lg); /* Maintain good spacing */
-        padding: var(--spacing-lg); /* Slightly reduced for medium screens */
+        gap: var(--spacing-lg);
+        padding: var(--spacing-lg);
     }
     
-    .main-video-container {
-        width: 100%;
-        max-height: 65vh; /* Increased from 60vh */
-        min-height: 280px; /* Increased min height */
-    }
-    
+    .main-video-container,
     .local-video-container {
-        width: 100%;
-        max-width: 450px; /* Increased from 400px */
-        height: 170px; /* Increased from 150px */
-        order: -1; /* Show local video on top in mobile layout */
+        flex: 1; /* Maintain equal distribution */
+        width: 50%;
+        max-width: 50%;
+        max-height: 60vh;
+        min-height: 280px;
     }
     
     .chat-sidebar {
@@ -1076,26 +1082,24 @@ body {
     .video-area {
         padding: var(--spacing-md);
         gap: var(--spacing-md);
-        flex-direction: column;
+        /* Keep horizontal layout even on tablets */
+        flex-direction: row;
         align-items: center;
     }
     
-    .main-video-container {
-        width: 100%;
-        max-height: 55vh; /* Increased from 50vh */
-        min-height: 220px; /* Increased from 200px */
-    }
-    
+    .main-video-container,
     .local-video-container {
-        width: 100%;
-        max-width: 350px; /* Increased from 300px */
-        height: 140px; /* Increased from 120px */
+        flex: 1; /* Equal distribution */
+        width: 50%;
+        max-width: 50%;
+        max-height: 50vh;
+        min-height: 220px;
     }
     
     .main-video-container .video-wrapper,
     .local-video-container .video-wrapper {
         aspect-ratio: 16/9;
-        border-radius: var(--radius-2xl); /* Maintain rounded corners on tablets */
+        border-radius: var(--radius-2xl);
     }
     
     .controls-wrapper {
@@ -1140,24 +1144,25 @@ body {
     .video-area {
         padding: var(--spacing-sm);
         gap: var(--spacing-sm);
+        /* Switch to vertical layout only on very small screens */
         flex-direction: column;
         align-items: center;
     }
     
-    .main-video-container {
-        width: 100%;
-        max-height: 45vh; /* Increased from 40vh */
-        min-height: 200px; /* Increased from 180px */
-    }
-    
+    .main-video-container,
     .local-video-container {
+        /* Full width on mobile but equal heights */
+        flex: none;
         width: 100%;
-        max-width: 280px; /* Increased from 250px */
-        height: 120px; /* Increased from 100px */
+        max-width: 100%;
+        max-height: 35vh;
+        min-height: 180px;
+        /* Equal heights for both videos */
+        height: 200px;
     }
     
     .video-wrapper {
-        border-radius: var(--radius-xl); /* More rounded corners on mobile */
+        border-radius: var(--radius-xl);
     }
     
     .main-video-container .video-wrapper,
