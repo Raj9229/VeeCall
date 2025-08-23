@@ -115,6 +115,8 @@ High-level architecture of the app:
    - Resource cleanup
    - Event management
    - State management
+  
+<img src="img2.png" alt="Tech Stack" width="820" />
 
 ## 📋 Requirements
 
