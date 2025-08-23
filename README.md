@@ -1,9 +1,20 @@
 # Professional Video Calling Application
 
-A modern, professional-grade video calling application built with FastAPI and WebRTC technology.
+A modern, professional-grade video calling application built with **FastAPI** and **WebRTC**.
 
 ## 🌐 Live Demo
-Try the application live at: https://veecall-production.up.railway.app/
+- Railway: https://veecall-production.up.railway.app/
+- Render: https://veecall.onrender.com/
+
+![Landing Screenshot](landing.png)
+
+---
+
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-blue)
+![WebRTC](https://img.shields.io/badge/WebRTC-enabled-green)
+![Deploy-Railway](https://img.shields.io/badge/Deployed-Railway-8A2BE2)
+![Deploy-Render](https://img.shields.io/badge/Deployed-Render-1F6FEB)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ## 🚀 Features
 
@@ -23,6 +34,37 @@ Try the application live at: https://veecall-production.up.railway.app/
 - **Media Controls**: Mute/unmute audio and video controls
 - **Room Management**: Copy room IDs, user tracking
 - **Performance Monitoring**: Built-in logging and health checks
+
+## ⚖️ Deployment Platforms (Comparison)
+
+| Platform | Pros | Cons | Best For |
+|---|---|---|---|
+| **Railway** | Very fast setup, Git auto-deploys, good DX | Free tier may sleep; limited scaling | Prototyping & demos |
+| **Render** | Stable uptime on free tier, free SSL, custom domains | Cold starts on free tier | Small production / student projects |
+| **Vercel (Frontend Only)** | Global CDN, instant rollbacks | No WebSockets for FastAPI backend | Hosting React/HTML frontend |
+| **Fly.io** | Low-latency global regions, good for realtime | Slightly higher setup complexity | Realtime apps at scale |
+| **AWS/DO (Droplet/EC2)** | Full control, can host TURN | More DevOps work; paid | Production at larger scale |
+
+> 📝 **Note:** For the FastAPI backend with WebSockets, prefer **Railway/Render/Fly.io**. You can still host the **frontend** on **Vercel** and point it to your backend.
+
+## 🏗 Architecture
+
+High-level architecture of the app:
+
+- **Frontend** (React/HTML/CSS/JS) serves UI and calls backend APIs
+- **FastAPI Backend** provides signaling over WebSockets + REST (health/config/room APIs)
+- **ICE (STUN/TURN) Servers** enable NAT traversal
+- **Peers (Browsers)** exchange audio/video/data directly via WebRTC
+
+<img src="assets/architecture.svg" alt="Architecture Diagram" width="820" />
+
+## 📸 Screenshots / Demo
+
+- Landing page (Join/Create Room):  
+  ![Landing](landing.png)
+
+- (Optional) Add a short GIF showing a call flow: *place under* `assets/demo.gif` and reference:  
+  `![Demo](assets/demo.gif)`
 
 ## 🛠 Technical Optimizations
 
@@ -45,7 +87,7 @@ Try the application live at: https://veecall-production.up.railway.app/
    - CORS support for development
 
 4. **Modern FastAPI Patterns**
-   - Lifespan event handlers (replacing deprecated on_event)
+   - Lifespan event handlers (replacing deprecated `on_event`)
    - Proper exception handling
    - Type hints and validation
 
@@ -90,49 +132,48 @@ Try the application live at: https://veecall-production.up.railway.app/
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+### 1) Install Dependencies
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-### 2. Run the Server
+### 2) Run the Server (Dev)
 ```bash
 python videocalling.py
 ```
 
-### 3. Open the Application
-Navigate to `http://localhost:8001` in your web browser.
+### 3) Open the Application
+Visit: `http://localhost:8001`
 
-### 4. Start a Video Call
-1. Click "Create Room" to generate a new room
+### 4) Start a Video Call
+1. Click **Create Room** to generate a new room
 2. Share the room ID with another participant
-3. The other participant can join using "Join Room"
+3. The other participant can join using **Join Room**
 4. Grant camera and microphone permissions when prompted
 
 ## 🎮 Usage
 
 ### Creating a Room
-1. Click the "Create Room" button on the landing page
+1. Click the **Create Room** button on the landing page
 2. A unique room ID will be generated automatically
 3. Share this room ID with participants you want to invite
 
 ### Joining a Room
 1. Enter the room ID in the input field
-2. Click "Join Room"
+2. Click **Join Room**
 3. Wait for the connection to establish
 
 ### During a Call
-- **Mute/Unmute**: Click the microphone button
-- **Turn Camera On/Off**: Click the video button
-- **End Call**: Click the red phone button
-- **Chat**: Click the chat icon to open messaging
-- **Copy Room ID**: Click the copy button next to the room ID
+- **Mute/Unmute**: Microphone button
+- **Camera On/Off**: Video button
+- **End Call**: Red phone button
+- **Chat**: Chat icon
+- **Copy Room ID**: Copy button
 
 ## 🔧 Configuration
 
 ### Server Configuration
-The server runs on `0.0.0.0:8001` by default. You can modify the configuration in `videocalling.py`:
-
+Default config in `videocalling.py`:
 ```python
 config = {
     "host": "0.0.0.0",
@@ -144,8 +185,6 @@ config = {
 ```
 
 ### WebRTC Configuration
-STUN servers are configured in the backend for NAT traversal:
-
 ```python
 WEBRTC_CONFIG = {
     "iceServers": [
@@ -159,102 +198,29 @@ WEBRTC_CONFIG = {
 }
 ```
 
-## 🏗 Architecture
-
-### Backend Architecture
-```
-FastAPI Application
-├── Connection Manager
-│   ├── User tracking
-│   ├── Room management
-│   └── Message routing
-├── WebSocket Endpoints
-│   ├── Signaling server
-│   └── Real-time communication
-└── REST API
-    ├── Health checks
-    ├── Room information
-    └── Configuration
-```
-
-### Frontend Architecture
-```
-VideoCallApp
-├── WebRTC Management
-│   ├── Peer connections
-│   ├── Media streams
-│   └── Signaling
-├── UI Management
-│   ├── Page navigation
-│   ├── Media controls
-│   └── Chat system
-└── Connection Management
-    ├── WebSocket handling
-    ├── Reconnection logic
-    └── Error handling
-```
-
 ## 🐛 Troubleshooting
 
-### Common Issues
+**Common Issues**
+1. Camera/Microphone Access Denied → allow browser permissions; ensure no other app is using the camera
+2. Connection Failed → check internet and firewall; try a different browser
+3. A/V Quality Issues → close heavy apps; adjust video constraints
+4. Room Connection Issues → verify room ID; create a new room
 
-1. **Camera/Microphone Access Denied**
-   - Ensure browser permissions are granted
-   - Check if another application is using the camera
-   - Try refreshing the page
-
-2. **Connection Failed**
-   - Check internet connection
-   - Verify firewall settings
-   - Try a different browser
-
-3. **Audio/Video Quality Issues**
-   - Check bandwidth
-   - Close other applications using camera/microphone
-   - Try different video quality settings
-
-4. **Room Connection Issues**
-   - Verify room ID is correct
-   - Check if room exists
-   - Try creating a new room
-
-### Development Issues
-
-1. **Server Won't Start**
-   - Check if port 8001 is available
-   - Verify Python dependencies are installed
-   - Check the console for error messages
-
-2. **WebSocket Connection Failed**
-   - Ensure server is running
-   - Check firewall/antivirus settings
-   - Verify WebSocket support in browser
+**Dev Issues**
+- Server Won't Start → verify port 8001 free; dependencies installed
+- WebSocket Failure → server running? firewall/AV? browser support?
 
 ## 🔒 Security Considerations
 
-1. **Data Privacy**: All communication is peer-to-peer through WebRTC
-2. **No Data Storage**: No video/audio data is stored on the server
-3. **Signaling Only**: Server only handles connection signaling
-4. **HTTPS Recommended**: Use HTTPS in production for better security
-
-## 🌐 Browser Support
-
-- Chrome 80+
-- Firefox 75+
-- Safari 13+
-- Edge 80+
+1. **Peer-to-peer Media**: All A/V is P2P via WebRTC
+2. **No Recording by Default**: No media stored on server
+3. **Signaling Only**: Server handles signaling (offers/answers/candidates)
+4. **HTTPS Required**: Use HTTPS in production for getUserMedia and WebRTC
 
 ## 📈 Performance Tips
 
-1. **Server Performance**
-   - Use production ASGI server (like Gunicorn with Uvicorn workers)
-   - Configure proper logging levels
-   - Monitor memory usage for large rooms
-
-2. **Client Performance**
-   - Close unused tabs/applications
-   - Use wired connection for better stability
-   - Ensure good lighting for video quality
+- **Server**: Use production ASGI (e.g., `uvicorn` with multiple workers), tune logging
+- **Client**: Prefer wired/wifi-5+, good lighting, close unused tabs
 
 ## 🚀 Deployment
 
@@ -273,15 +239,21 @@ uvicorn videocalling:app --host 0.0.0.0 --port 8001 --workers 4
 FROM python:3.11-slim
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN python -m pip install --no-cache-dir -r requirements.txt
 COPY . .
 EXPOSE 8001
 CMD ["python", "videocalling.py"]
 ```
 
+### Important Deployment Notes
+- ✅ Use **HTTPS** for WebRTC to work in browsers
+- ✅ Configure **CORS** if frontend and backend are on different domains
+- ✅ Add **TURN server** (e.g., Coturn or a managed service) for production reliability behind strict NATs
+- ✅ If hosting frontend on **Vercel**, host backend on **Railway/Render/Fly.io** and set env vars for API/WS URLs
+
 ## 📝 Changelog
 
-### Version 2.0.0
+### v2.0.0
 - Complete rewrite with enhanced architecture
 - Improved WebRTC implementation
 - Better error handling and reconnection
@@ -290,7 +262,7 @@ CMD ["python", "videocalling.py"]
 - Real-time chat system
 - Professional styling
 
-### Version 1.0.0
+### v1.0.0
 - Basic video calling functionality
 - Simple room system
 - Basic WebRTC implementation
@@ -305,19 +277,19 @@ CMD ["python", "videocalling.py"]
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
+MIT License
 
 ## 💡 Future Enhancements
 
-- [ ] Screen sharing capability
-- [ ] Recording functionality
+- [ ] Screen sharing
+- [ ] Recording
 - [ ] User authentication
 - [ ] Room passwords
 - [ ] File sharing
-- [ ] Multiple participants support
-- [ ] Mobile app development
-- [ ] TURN server integration for better connectivity
+- [ ] Multiple participants
+- [ ] Mobile app
+- [ ] TURN server integration
 
 ---
 
-Built with ❤️ using FastAPI and WebRTC
+Built with ❤️ using **FastAPI** and **WebRTC**.
