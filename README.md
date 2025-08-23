@@ -62,7 +62,7 @@ High-level architecture of the app:
 
 <img src="architecture.svg" alt="Architecture Diagram" width="820" />
 
-(img.jpg)
+<img src="img.jpg" alt="Diagram" width="820" />
 
 
 ## 🛠 Technical Optimizations
