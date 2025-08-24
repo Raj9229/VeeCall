@@ -36,8 +36,7 @@ A modern, professional-grade video calling application built with **FastAPI** an
 - **WebRTC Optimization**: Multiple STUN servers for better connectivity
 - **Real-time Status**: Connection status indicators
 - **Media Controls**: Mute/unmute audio and video controls
-- **Room Management**: Copy room IDs, user tracking
-- **Performance Monitoring**: Built-in logging and health checks
+- **Room Management**: Copy room IDs, user tracking system
 
 ## ⚖️ Deployment Platforms (Comparison)
 
